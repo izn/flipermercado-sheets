@@ -50,7 +50,7 @@ class PurchaseWizard extends Component {
       GAPIClient.client.sheets.spreadsheets.values
         .get({
           spreadsheetId: config.spreadsheetId,
-          range: "Flipers"
+          range: 'Flipers'
         })
         .then(
           response => {
@@ -72,7 +72,7 @@ class PurchaseWizard extends Component {
       GAPIClient.client.sheets.spreadsheets.values
         .get({
           spreadsheetId: config.spreadsheetId,
-          range: "Products"
+          range: 'Products'
         })
         .then(
           response => {
@@ -104,7 +104,7 @@ class PurchaseWizard extends Component {
           resource: {
             'majorDimension': 'ROWS',
             'values': [[
-              new Date(),
+              new Date().toUTCString(),
               user.name,
               product.name,
               product.price
