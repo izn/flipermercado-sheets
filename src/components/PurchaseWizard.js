@@ -23,13 +23,13 @@ class PurchaseWizard extends Component {
   }
 
   selectUser(event) {
-    let foundUser = this.state.userList[event.target.dataset.id]
+    let foundUser = this.state.userList[event.target.value]
 
     this.setState({ user: foundUser })
   }
 
   selectProduct(event) {
-    let foundProduct = this.state.productList[event.target.dataset.id]
+    let foundProduct = this.state.productList[event.target.value]
 
     this.setState({ product: foundProduct })
   }
@@ -146,7 +146,9 @@ class PurchaseWizard extends Component {
         {user && !product && (
           <ProductList
             productList={this.state.productList}
-            selectProduct={this.selectProduct} />
+            selectProduct={this.selectProduct}
+            handleRestartWizard={this.restartWizard}
+            user={user} />
         )}
 
         {user && product && !transactionCompleted && (

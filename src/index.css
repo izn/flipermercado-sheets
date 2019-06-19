@@ -1,0 +1,15 @@
+body {
+  font-size: 25px;
+}
+
+label {
+  font-weight: 500;
+}
+
+select, option {
+  font-size: 25px !important;
+}
+
+button {
+  padding: 25px !important;
+}

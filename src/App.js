@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container } from 'react-bootstrap'
+import { Container, Button } from 'react-bootstrap'
 
 import config from './config'
 
@@ -53,6 +53,10 @@ class App extends Component {
     }
   }
 
+  handleClickGoogleAPISignIn() {
+    window.gapi.auth2.getAuthInstance().signIn()
+  }
+
   render() {
     return (
       <Container>
@@ -61,6 +65,10 @@ class App extends Component {
         {this.state.GAPIClient && (
           <PurchaseWizard
             GAPIClient={this.state.GAPIClient} />
+        )}
+
+        {!this.state.GAPIClient && (
+          <Button onClick={this.handleClickGoogleAPISignIn}>Google Login</Button>
         )}
       </Container>
     )

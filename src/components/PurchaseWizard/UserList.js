@@ -1,23 +1,23 @@
 import React, { Component } from 'react'
-import { ListGroup } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 class UserList extends Component {
   render() {
     const { selectUser, userList } = this.props
 
     return (
-      <ListGroup>
-        {userList.map((user, index) => (
-          <ListGroup.Item
-            key={index}
-            data-id={index}
-            onClick={selectUser}
-            action
-          >
-            {user.name}
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
+      <Form.Group>
+        <label>Quem é você? :)</label>
+        <Form.Control as="select" onChange={selectUser}>
+          <option>[Selecione]</option>
+
+          {userList.map((user, index) => (
+            <option value={index}>
+              {user.name}
+            </option>
+          ))}
+        </Form.Control>
+      </Form.Group>
     )
   }
 }

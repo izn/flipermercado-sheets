@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Col, Row } from 'react-bootstrap'
 
-import logo from '../logo.png'
+import logo from '../logo.svg'
 
 class Logo extends Component {
   render() {
