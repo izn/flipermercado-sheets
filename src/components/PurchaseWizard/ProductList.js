@@ -17,19 +17,19 @@ class ProductList extends Component {
 
     return (
       <div>
+        <h3 className="text-center">
+          <strong>{user.name}</strong>
+        </h3>
+
+        <br />
+
         <Form.Group>
-          <h3 className="text-center">
-            <strong>{user.name}</strong>
-          </h3>
-
-          <br />
-
           <label>O que você deseja comprar?</label>
           <Form.Control as="select" onChange={selectProduct}>
             <option>[Selecione o Produto]</option>
 
             {productList.map((product, index) => (
-              <option value={index}>
+              <option key={index} value={index}>
                 {product.name} (R${product.price})
               </option>
             ))}

@@ -46,46 +46,42 @@ class PurchaseWizard extends Component {
   loadUsers = () => {
     const { GAPIClient } = this.props
 
-    GAPIClient.client.load('sheets', 'v4', () => {
-      GAPIClient.client.sheets.spreadsheets.values
-        .get({
-          spreadsheetId: config.spreadsheetId,
-          range: config.spreadsheetNamedRanges.userList,
-        })
-        .then(
-          response => {
-            const data = response.result.values
-            const users = data.map(user => ({
-              name: user[0],
-            })) || []
-
-            this.setState({ userList: users })
-          }
-        )
+    GAPIClient.client.sheets.spreadsheets.values
+      .get({
+        spreadsheetId: config.spreadsheetId,
+        range: config.spreadsheetNamedRanges.userList,
       })
+      .then(
+        response => {
+          const data = response.result.values
+          const users = data.map(user => ({
+            name: user[0],
+          })) || []
+
+          this.setState({ userList: users })
+        }
+      )
   }
 
   loadProducts = () => {
     const { GAPIClient } = this.props
 
-    GAPIClient.client.load('sheets', 'v4', () => {
-      GAPIClient.client.sheets.spreadsheets.values
-        .get({
-          spreadsheetId: config.spreadsheetId,
-          range: config.spreadsheetNamedRanges.productList,
-        })
-        .then(
-          response => {
-            const data = response.result.values
-            const products = data.map(product => ({
-              name: product[0],
-              price: product[1]
-            }))
+    GAPIClient.client.sheets.spreadsheets.values
+      .get({
+        spreadsheetId: config.spreadsheetId,
+        range: config.spreadsheetNamedRanges.productList,
+      })
+      .then(
+        response => {
+          const data = response.result.values
+          const products = data.map(product => ({
+            name: product[0],
+            price: product[1]
+          }))
 
-            this.setState({ productList: products })
-          }
-        )
-    })
+          this.setState({ productList: products })
+        }
+      )
   }
 
   confirmPurchase = () => {
@@ -94,36 +90,34 @@ class PurchaseWizard extends Component {
 
     this.setState({ loadingPurchase: true })
 
-    GAPIClient.client.load('sheets', 'v4', () => {
-      GAPIClient.client.sheets.spreadsheets.values
-        .append({
-          spreadsheetId: config.spreadsheetId,
-          range: 'Transactions',
-          insertDataOption: 'INSERT_ROWS',
-          valueInputOption: 'USER_ENTERED',
-          resource: {
-            'majorDimension': 'ROWS',
-            'values': [[
-              new Date().toUTCString(),
-              user.name,
-              product.name,
-              product.price
-            ]]
-          },
-        })
-        .then(
-          response => {
-            this.setState({
-              loadingPurchase: false,
-              transactionCompleted: true
-            })
+    GAPIClient.client.sheets.spreadsheets.values
+      .append({
+        spreadsheetId: config.spreadsheetId,
+        range: 'Transactions',
+        insertDataOption: 'INSERT_ROWS',
+        valueInputOption: 'USER_ENTERED',
+        resource: {
+          'majorDimension': 'ROWS',
+          'values': [[
+            new Date().toUTCString(),
+            user.name,
+            product.name,
+            product.price
+          ]]
+        },
+      })
+      .then(
+        response => {
+          this.setState({
+            loadingPurchase: false,
+            transactionCompleted: true
+          })
 
-            setTimeout(() => {
-              this.restartWizard()
-            }, 4000)
-          }
-        );
-    });
+          setTimeout(() => {
+            this.restartWizard()
+          }, 4000)
+        }
+      )
   }
 
   componentDidMount() {
