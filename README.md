@@ -15,7 +15,7 @@ You need to get a Google API Client ID and a SpreadSheet ID to update `config.js
 
 #### Google API Client ID
 
-To create a Google API Console project and Client ID, go to [Google Console](https://console.google.com) and start a new project.
+To create a Google API Console project and Client ID, go to [Google Console](https://console.cloud.google.com/) and start a new project.
 
 When you configure the project, select the Web browser client type and specify the origin URI of your app.
 
