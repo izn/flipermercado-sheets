@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
 class ProductList extends Component {
+  componentDidMount() {
+    // TODO: Please refactor. Sorry.
+    document.body.style.backgroundColor = '#FFF9C4'
+  }
+
   render() {
     const {
       selectProduct,
@@ -10,14 +15,18 @@ class ProductList extends Component {
       user
     } = this.props
 
-    const userFirstName = user.name.split(' ')[0]
-
     return (
       <div>
         <Form.Group>
-          <label>Oi, {userFirstName}! O que você deseja comprar?</label>
+          <h3 className="text-center">
+            <strong>{user.name}</strong>
+          </h3>
+
+          <br />
+
+          <label>O que você deseja comprar?</label>
           <Form.Control as="select" onChange={selectProduct}>
-            <option>[Selecione]</option>
+            <option>[Selecione o Produto]</option>
 
             {productList.map((product, index) => (
               <option value={index}>

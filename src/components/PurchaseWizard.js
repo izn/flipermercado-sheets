@@ -50,7 +50,7 @@ class PurchaseWizard extends Component {
       GAPIClient.client.sheets.spreadsheets.values
         .get({
           spreadsheetId: config.spreadsheetId,
-          range: 'Flipers'
+          range: 'Users'
         })
         .then(
           response => {
@@ -161,9 +161,7 @@ class PurchaseWizard extends Component {
         )}
 
         {transactionCompleted && (
-          <div>
-            <h3 className="text-center">Obrigado!</h3>
-          </div>
+          <h3 className="text-center">Obrigado!</h3>
         )}
         </Col>
       </Row>

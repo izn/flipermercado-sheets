@@ -68,7 +68,7 @@ class App extends Component {
         )}
 
         {!this.state.GAPIClient && (
-          <Button onClick={this.handleClickGoogleAPISignIn}>Google Login</Button>
+          <Button onClick={this.handleClickGoogleAPISignIn} block>Login with Google</Button>
         )}
       </Container>
     )

@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 
 class UserList extends Component {
+  componentDidMount() {
+    // TODO: Please refactor. Sorry.
+    document.body.style.backgroundColor = '#FFCCBC'
+  }
+
   render() {
     const {
       user,
@@ -15,7 +20,11 @@ class UserList extends Component {
 
     return (
       <div>
-        <h3 className="text-center">{userFirstName}, você tem certeza que deseja comprar {product.name} por R${product.price}?</h3>
+        <h3 className="text-center">
+          <strong>{userFirstName}</strong>,
+            você tem certeza que deseja comprar <strong>{product.name}</strong> por <strong>R${product.price}</strong>?
+        </h3>
+
         <br />
 
         <Button variant="primary" size="lg" onClick={handlePurchaseClick} disabled={loadingPurchase} block>
