@@ -155,7 +155,10 @@ class PurchaseWizard extends Component {
         )}
 
         {transactionCompleted && (
-          <h3 className="text-center">Obrigado!</h3>
+          <div className="text-center">
+            <h3>Obrigado!</h3>
+            <p>E não se esqueça de marcar sua compra no papel também!</p>
+          </div>
         )}
         </Col>
       </Row>
