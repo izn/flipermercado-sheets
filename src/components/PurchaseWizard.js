@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Col, Row } from 'react-bootstrap'
 
+import { chunk, flatten } from 'lodash'
+
 import config from '../config'
 
 import UserList from './PurchaseWizard/UserList'
 import ProductList from './PurchaseWizard/ProductList'
-import BuyButton from './PurchaseWizard/BuyButton'
+import Confirmation from './PurchaseWizard/Confirmation'
 
 class PurchaseWizard extends Component {
   constructor(props) {
@@ -19,28 +21,43 @@ class PurchaseWizard extends Component {
     this.selectUser = this.selectUser.bind(this)
     this.selectProduct = this.selectProduct.bind(this)
     this.confirmPurchase = this.confirmPurchase.bind(this)
+
+    this.clearSelectedUser = this.clearSelectedUser.bind(this)
+    this.clearSelectedProduct = this.clearSelectedProduct.bind(this)
     this.restartWizard = this.restartWizard.bind(this)
   }
 
   selectUser(event) {
-    let foundUser = this.state.userList[event.target.value]
+    let userId = parseInt(event.target.value)
+    let foundUser = this.state.userList.find(user => user.id === userId)
+
+    console.log(userId)
+    console.log(foundUser)
 
     this.setState({ user: foundUser })
   }
 
-  selectProduct(event) {
-    let foundProduct = this.state.productList[event.target.value]
+  selectProduct(productId) {
+    let foundProduct = flatten(
+      this.state.productList
+    ).find(product => product.id === productId)
 
     this.setState({ product: foundProduct })
   }
 
   restartWizard() {
-    this.setState({
-      user: null,
-      product: null,
-      loadingPurchase: false,
-      transactionCompleted: false
-    })
+    this.clearSelectedUser()
+    this.clearSelectedProduct()
+
+    this.setState({ loadingPurchase: false, transactionCompleted: false })
+  }
+
+  clearSelectedUser() {
+    this.setState({ user: null })
+  }
+
+  clearSelectedProduct() {
+    this.setState({ product: null })
   }
 
   loadUsers = () => {
@@ -54,7 +71,8 @@ class PurchaseWizard extends Component {
       .then(
         response => {
           const data = response.result.values
-          const users = data.map(user => ({
+          const users = data.map((user, index) => ({
+            id: index,
             name: user[0],
           })) || []
 
@@ -74,12 +92,13 @@ class PurchaseWizard extends Component {
       .then(
         response => {
           const data = response.result.values
-          const products = data.map(product => ({
+          const products = data.map((product, index) => ({
+            id: index,
             name: product[0],
             price: product[1]
           }))
 
-          this.setState({ productList: products })
+          this.setState({ productList: chunk(products, 2) })
         }
       )
   }
@@ -141,17 +160,17 @@ class PurchaseWizard extends Component {
           <ProductList
             productList={this.state.productList}
             selectProduct={this.selectProduct}
-            handleRestartWizard={this.restartWizard}
+            handleBackButton={this.clearSelectedUser}
             user={user} />
         )}
 
         {user && product && !transactionCompleted && (
-          <BuyButton
+          <Confirmation
             user={user}
             product={product}
             loadingPurchase={this.state.loadingPurchase}
             handlePurchaseClick={this.confirmPurchase}
-            handleRestartWizard={this.restartWizard} />
+            handleBackButton={this.clearSelectedProduct} />
         )}
 
         {transactionCompleted && (

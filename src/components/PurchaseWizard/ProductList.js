@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Button, Row, Col } from 'react-bootstrap'
+
+import ProductListItems from './ProductListItems'
 
 class ProductList extends Component {
   componentDidMount() {
@@ -10,36 +12,29 @@ class ProductList extends Component {
   render() {
     const {
       selectProduct,
-      handleRestartWizard,
+      handleBackButton,
       productList,
       user
     } = this.props
 
     return (
-      <div>
-        <h3 className="text-center">
+      <>
+        <h3 className='text-center mb-4'>
           <strong>{user.name}</strong>
         </h3>
 
-        <br />
+        <h4 className='mb-4'>O que você deseja comprar?</h4>
 
-        <Form.Group>
-          <label>O que você deseja comprar?</label>
-          <Form.Control as="select" onChange={selectProduct}>
-            <option>[Selecione o Produto]</option>
+        {productList.map((products, index) => (
+          <ProductListItems key={index} products={products} selectProduct={selectProduct} />
+        ))}
 
-            {productList.map((product, index) => (
-              <option key={index} value={index}>
-                {product.name} (R${product.price})
-              </option>
-            ))}
-          </Form.Control>
-        </Form.Group>
-
-        <Form.Group>
-          <Button variant="light" size="lg" onClick={handleRestartWizard} block>Cancelar</Button>
-        </Form.Group>
-      </div>
+        <Row className='mb-4'>
+          <Col>
+            <Button variant="light" size="lg" onClick={handleBackButton} block>Voltar</Button>
+          </Col>
+        </Row>
+      </>
     )
   }
 }

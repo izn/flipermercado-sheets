@@ -17,7 +17,7 @@ class UserList extends Component {
           <option>[Selecione]</option>
 
           {userList.map((user, index) => (
-            <option key={index} value={index}>
+            <option key={index} value={user.id}>
               {user.name}
             </option>
           ))}

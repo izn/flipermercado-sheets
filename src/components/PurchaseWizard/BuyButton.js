@@ -1,40 +1,41 @@
-import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import React, { Component } from 'react'
+import { Button, Spinner } from 'react-bootstrap'
 
-class UserList extends Component {
+class BuyButton extends Component {
   componentDidMount() {
     // TODO: Please refactor. Sorry.
     document.body.style.backgroundColor = '#FFCCBC'
   }
 
   render() {
-    const {
-      user,
-      product,
-      loadingPurchase,
-      handlePurchaseClick,
-      handleRestartWizard
-    } = this.props
-
-    const userFirstName = user.name.split(' ')[0]
+    const { loadingPurchase, handlePurchaseClick, handleBackButton } = this.props
 
     return (
-      <div>
-        <h3 className="text-center">
-          <strong>{userFirstName}</strong>,
-            você tem certeza que deseja comprar <strong>{product.name}</strong> por <strong>R${product.price}</strong>?
-        </h3>
+      <>
+        {loadingPurchase && (
+        <div class='text-center'>
+          <Spinner
+            animation='grow'
+            size='lg'
+            variant='dark'
+            role='status'
+            aria-hidden='true'
+          />
+        </div>
+        )}
 
-        <br />
+        {!loadingPurchase && (
+        <>
+          <Button variant="primary" size="lg" onClick={handlePurchaseClick} block>
+            Comprar
+          </Button>
 
-        <Button variant="primary" size="lg" onClick={handlePurchaseClick} disabled={loadingPurchase} block>
-          Comprar
-        </Button>
-
-        <Button variant="light" size="lg" onClick={handleRestartWizard} block>Cancelar</Button>
-      </div>
-    );
+          <Button variant="light" size="lg" onClick={handleBackButton} block>Voltar</Button>
+        </>
+        )}
+      </>
+    )
   }
 }
 
-export default UserList;
+export default BuyButton
