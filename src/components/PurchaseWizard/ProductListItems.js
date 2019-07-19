@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Card, CardDeck } from 'react-bootstrap'
 
+import { parsePrice } from '../helpers'
+
 class ProductListItems extends Component {
   render() {
     const { products, selectProduct } = this.props
@@ -17,7 +19,7 @@ class ProductListItems extends Component {
               {product.name}
             </Card.Header>
             <Card.Body>
-              R$ {product.price}
+              {parsePrice(product.price)}
             </Card.Body>
           </Card>
         ))}

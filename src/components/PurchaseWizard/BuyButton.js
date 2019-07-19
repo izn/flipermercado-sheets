@@ -13,7 +13,7 @@ class BuyButton extends Component {
     return (
       <>
         {loadingPurchase && (
-        <div class='text-center'>
+        <div className='text-center'>
           <Spinner
             animation='grow'
             size='lg'

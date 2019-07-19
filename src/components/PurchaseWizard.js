@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Col, Row } from 'react-bootstrap'
 
+import axios from 'axios'
 import { chunk, flatten } from 'lodash'
 
 import config from '../config'
+import { currentDate } from './helpers'
 
 import UserList from './PurchaseWizard/UserList'
 import ProductList from './PurchaseWizard/ProductList'
@@ -31,9 +33,6 @@ class PurchaseWizard extends Component {
     let userId = parseInt(event.target.value)
     let foundUser = this.state.userList.find(user => user.id === userId)
 
-    console.log(userId)
-    console.log(foundUser)
-
     this.setState({ user: foundUser })
   }
 
@@ -60,83 +59,78 @@ class PurchaseWizard extends Component {
     this.setState({ product: null })
   }
 
-  loadUsers = () => {
-    const { GAPIClient } = this.props
-
-    GAPIClient.client.sheets.spreadsheets.values
-      .get({
-        spreadsheetId: config.spreadsheetId,
-        range: config.spreadsheetNamedRanges.userList,
+  loadUsers = async () => {
+    try {
+      const response = await axios({
+        method: 'post',
+        url: config.googleScriptURL + '?action=list_users',
+        data: {},
+        headers: {
+          'Content-Type': 'text/plain',
+        },
       })
-      .then(
-        response => {
-          const data = response.result.values
-          const users = data.map((user, index) => ({
-            id: index,
-            name: user[0],
-          })) || []
 
-          this.setState({ userList: users })
-        }
-      )
+      const data = response.data
+      const users = data.map((user, index) => ({
+        id: index,
+        name: user[0],
+      })) || []
+
+      this.setState({ userList: users })
+    } catch (error) {}
   }
 
-  loadProducts = () => {
-    const { GAPIClient } = this.props
-
-    GAPIClient.client.sheets.spreadsheets.values
-      .get({
-        spreadsheetId: config.spreadsheetId,
-        range: config.spreadsheetNamedRanges.productList,
+  loadProducts = async () => {
+    try {
+      const response = await axios({
+        method: 'post',
+        url: config.googleScriptURL + '?action=list_products',
+        data: {},
+        headers: {
+          'Content-Type': 'text/plain',
+        },
       })
-      .then(
-        response => {
-          const data = response.result.values
-          const products = data.map((product, index) => ({
-            id: index,
-            name: product[0],
-            price: product[1]
-          }))
 
-          this.setState({ productList: chunk(products, 2) })
-        }
-      )
+      const data = response.data
+      const products = data.map((product, index) => ({
+        id: index,
+        name: product[0],
+        price: product[1]
+      }))
+
+      this.setState({ productList: chunk(products, 2) })
+    } catch (error) {}
   }
 
-  confirmPurchase = () => {
-    const { GAPIClient } = this.props
+  confirmPurchase = async () => {
     const { user, product } = this.state
 
     this.setState({ loadingPurchase: true })
 
-    GAPIClient.client.sheets.spreadsheets.values
-      .append({
-        spreadsheetId: config.spreadsheetId,
-        range: 'Transactions',
-        insertDataOption: 'INSERT_ROWS',
-        valueInputOption: 'USER_ENTERED',
-        resource: {
-          'majorDimension': 'ROWS',
-          'values': [[
-            new Date().toUTCString(),
-            user.name,
-            product.name,
-            product.price
-          ]]
+    try {
+      await axios({
+        method: 'post',
+        url: config.googleScriptURL + '?action=create_transaction',
+        data: {
+          created_at: currentDate(),
+          user: user.name,
+          product: product.name,
+          price: product.price,
+        },
+        headers: {
+          'Content-Type': 'text/plain',
         },
       })
-      .then(
-        response => {
-          this.setState({
-            loadingPurchase: false,
-            transactionCompleted: true
-          })
+    } catch (error) {}
 
-          setTimeout(() => {
-            this.restartWizard()
-          }, 4000)
-        }
-      )
+    this.setState({
+      loadingPurchase: false,
+      transactionCompleted: true
+    })
+
+    setTimeout(() => {
+      this.restartWizard()
+    }, 4000)
   }
 
   componentDidMount() {
