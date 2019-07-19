@@ -11,25 +11,12 @@ cd flipermercado-sheets
 cp src/config.sample.js src/config.js
 ```
 
-You need to get a Google API Client ID and a SpreadSheet ID to update `config.js`.
+You need to script an endpoint using Google Script.
+Then you need to update `config.js` with your Google Script Web App URL.
 
-#### Google API Client ID
+## GS API Example
 
-To create a Google API Console project and Client ID, go to [Google Console](https://console.cloud.google.com/) and start a new project.
-
-When you configure the project, select the Web browser client type and specify the origin URI of your app.
-
-#### SpreadSheet ID
-
-Start copying [this spreadsheet](https://docs.google.com/spreadsheets/d/1fteT792oiPYxTLEb3dZTWZVQCpDDcoNXmlAdqzdAzyw/edit#gid=943550932) to your Google account.
-
-Then copy the spreadsheet ID from the URL.
-
-Example: `https://docs.google.com/spreadsheets/d/[SPREADSHEET_ID]/edit`
-
-#### That's it!
-
-The application will request you to log-in with Google for the first time to grant write-access to your SpreadSheet.
+[TODO]
 
 ## Running
 
