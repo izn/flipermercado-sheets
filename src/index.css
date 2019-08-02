@@ -3,14 +3,20 @@
  * I'm running this app on a fucking cheap device with an awful screen resolution.
 */
 
+body {
+  font-size: 26px
+}
+
 label {
   font-weight: 500;
   font-size: 28px;
 }
 
+.list-group-item { padding: 30px 20px }
+
 input, select, option { font-size: 25px !important; }
 
-button { font-size: 20px }
+button { font-size: 20px; margin: 10px 0; padding: 30px !important }
 
 .dropdown-item { font-size: 22px }
 

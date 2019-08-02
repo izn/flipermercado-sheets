@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form } from 'react-bootstrap'
+import { Form, ListGroup } from 'react-bootstrap'
 
 class UserList extends Component {
   componentDidMount() {
@@ -13,15 +13,13 @@ class UserList extends Component {
     return (
       <Form.Group>
         <label>Quem é você?</label>
-        <Form.Control as="select" onChange={selectUser}>
-          <option>[Selecione]</option>
-
-          {userList.map((user, index) => (
-            <option key={index} value={user.id}>
-              {user.name}
-            </option>
-          ))}
-        </Form.Control>
+        <ListGroup>
+        {userList.map((user, index) => (
+          <ListGroup.Item onClick={() => selectUser(user.id)} key={user.id}>
+            {user.name}
+          </ListGroup.Item>
+        ))}
+        </ListGroup>
       </Form.Group>
     )
   }

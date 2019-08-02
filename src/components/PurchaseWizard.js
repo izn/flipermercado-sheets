@@ -29,8 +29,7 @@ class PurchaseWizard extends Component {
     this.restartWizard = this.restartWizard.bind(this)
   }
 
-  selectUser(event) {
-    let userId = parseInt(event.target.value)
+  selectUser(userId) {
     let foundUser = this.state.userList.find(user => user.id === userId)
 
     this.setState({ user: foundUser })
