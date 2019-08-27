@@ -21,3 +21,8 @@ button { font-size: 20px; margin: 10px 0; padding: 30px !important }
 .dropdown-item { font-size: 22px }
 
 .card { font-size: 22px }
+
+.bottom-sticky {
+  position: sticky;
+  bottom: 0;
+}

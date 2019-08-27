@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button, Row, Col } from 'react-bootstrap'
 
 import { parsePrice } from '../helpers'
 
@@ -7,7 +8,8 @@ import BuyButton from './BuyButton'
 class Confirmation extends Component {
   componentDidMount() {
     // TODO: Please refactor. Sorry.
-    document.body.style.backgroundColor = '#FFCCBC'
+    document.body.style.backgroundColor = '#fbe2f0'
+    window.scrollTo(0, 0)
   }
 
   render() {
@@ -31,9 +33,14 @@ class Confirmation extends Component {
 
         <BuyButton
           handlePurchaseClick={handlePurchaseClick}
-          handleBackButton={handleBackButton}
           loadingPurchase={loadingPurchase}
         />
+
+        <Row className='mb-4'>
+          <Col>
+            <Button variant="light" size="lg" onClick={handleBackButton} block>Voltar</Button>
+          </Col>
+        </Row>
       </>
     );
   }

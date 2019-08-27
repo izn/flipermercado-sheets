@@ -6,7 +6,8 @@ import ProductListItems from './ProductListItems'
 class ProductList extends Component {
   componentDidMount() {
     // TODO: Please refactor. Sorry.
-    document.body.style.backgroundColor = '#FFF9C4'
+    document.body.style.backgroundColor = '#fff2df'
+    window.scrollTo(0, 0)
   }
 
   render() {
@@ -29,9 +30,9 @@ class ProductList extends Component {
           <ProductListItems key={index} products={products} selectProduct={selectProduct} />
         ))}
 
-        <Row className='mb-4'>
+        <Row className='mb-4 bottom-sticky'>
           <Col>
-            <Button variant="light" size="lg" onClick={handleBackButton} block>Voltar</Button>
+            <Button variant="dark" size="lg" onClick={handleBackButton} block>Voltar</Button>
           </Col>
         </Row>
       </>

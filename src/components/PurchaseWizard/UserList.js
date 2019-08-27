@@ -5,6 +5,7 @@ class UserList extends Component {
   componentDidMount() {
     // TODO: Please refactor. Sorry.
     document.body.style.backgroundColor = '#FFFFFF'
+    window.scrollTo(0, 0)
   }
 
   render() {
@@ -15,7 +16,7 @@ class UserList extends Component {
         <label>Quem é você?</label>
         <ListGroup>
         {userList.map((user, index) => (
-          <ListGroup.Item onClick={() => selectUser(user.id)} key={user.id}>
+          <ListGroup.Item action onClick={() => selectUser(user.id)} key={user.id}>
             {user.name}
           </ListGroup.Item>
         ))}
