@@ -8,7 +8,7 @@ class BuyButton extends Component {
   }
 
   render() {
-    const { loadingPurchase, handlePurchaseClick } = this.props
+    const { loadingPurchase, handlePurchaseClick, handleBackButton } = this.props
 
     return (
       <>
@@ -25,9 +25,13 @@ class BuyButton extends Component {
         )}
 
         {!loadingPurchase && (
-          <Button variant="primary" size="lg" onClick={handlePurchaseClick} block>
-            Comprar
-          </Button>
+          <>
+            <Button variant="primary" size="lg" onClick={handlePurchaseClick} block>
+              Comprar
+            </Button>
+
+            <Button variant="light" size="lg" onClick={handleBackButton} block>Voltar</Button>
+          </>
         )}
       </>
     )
