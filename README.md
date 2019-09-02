@@ -20,7 +20,7 @@ Replace `SHA256_PASSWORD_TO_PROTECT_YOUR_APP` with a real SHA256 password.
 
 ## GS API Example
 
-https://script.google.com/d/12dyDIuBElz5XH98KsNhg5YrAAe0Is_1MD-0PF9v80aJXadKYExl2w1Kb/
+https://script.google.com/d/12dyDIuBElz5XH98KsNhg5YrAAe0Is_1MD-0PF9v80aJXadKYExl2w1Kb/edit
 
 ## SpreadSheet Template
 
