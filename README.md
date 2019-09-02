@@ -12,11 +12,20 @@ cp src/config.sample.js src/config.js
 ```
 
 You need to script an endpoint using Google Script.
-Then you need to update `config.js` with your Google Script Web App URL.
+Then you need to update `config.js` with a password and your Google Script Web App URL. See below.
+
+## Password
+
+Replace `SHA256_PASSWORD_TO_PROTECT_YOUR_APP` with a real SHA256 password.
 
 ## GS API Example
 
-[TODO]
+https://script.google.com/d/12dyDIuBElz5XH98KsNhg5YrAAe0Is_1MD-0PF9v80aJXadKYExl2w1Kb/
+
+## SpreadSheet Template
+
+https://docs.google.com/spreadsheets/d/1fteT792oiPYxTLEb3dZTWZVQCpDDcoNXmlAdqzdAzyw/
+
 
 ## Running
 
