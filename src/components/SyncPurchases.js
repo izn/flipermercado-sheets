@@ -32,7 +32,6 @@ const SyncPurchases = {
 
                     localStorage.removeItem(key);
                 } catch (error) {
-                    console.info(error)
                     break;
                 }
             }
