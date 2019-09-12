@@ -6,6 +6,7 @@ import { chunk, flatten } from 'lodash'
 
 import config from '../config'
 import { currentDate } from './helpers'
+import SyncPurchases from './SyncPurchases'
 
 import UserList from './PurchaseWizard/UserList'
 import ProductList from './PurchaseWizard/ProductList'
@@ -106,21 +107,12 @@ class PurchaseWizard extends Component {
 
     this.setState({ loadingPurchase: true })
 
-    try {
-      await axios({
-        method: 'post',
-        url: config.googleScriptURL + '?action=create_transaction',
-        data: {
-          created_at: currentDate(),
-          user: user.name,
-          product: product.name,
-          price: product.price,
-        },
-        headers: {
-          'Content-Type': 'text/plain',
-        },
-      })
-    } catch (error) {}
+    SyncPurchases.storePurchase({
+      created_at: currentDate(),
+      user: user.name,
+      product: product.name,
+      price: product.price,
+    })
 
     this.setState({
       loadingPurchase: false,

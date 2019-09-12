@@ -6,6 +6,7 @@ import PurchaseWizard from './components/PurchaseWizard'
 import FakeAuth from './components/FakeAuth'
 
 import config from './config'
+import SyncPurchases from './components/SyncPurchases'
 
 import sha256 from 'crypto-js/sha256'
 
@@ -25,6 +26,8 @@ class App extends Component {
 
   render() {
     const isAuthenticated = this.state.isAuthenticated
+
+    SyncPurchases.startJob();
 
     return (
       <Container>
